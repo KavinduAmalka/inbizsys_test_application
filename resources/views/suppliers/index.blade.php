@@ -26,6 +26,37 @@
 @endsection
 
 @section('content')
+    <!-- Search Bar -->
+    <!-- Search Bar -->
+    <div class="mb-6">
+        <form method="GET" action="{{ route('suppliers.index') }}" class="flex gap-2 items-end justify-end">
+            <input 
+                type="email" 
+                id="email-search" 
+                name="email" 
+                value="{{ $search ?? '' }}" 
+                placeholder="Search by email..." 
+                class="input input-bordered input-sm w-64"
+            >
+            <button type="submit" class="btn btn-primary btn-sm inline-flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <span>Search</span>
+            </button>
+            @if (!empty($search))
+                <a href="{{ route('suppliers.index') }}" class="btn btn-secondary btn-sm inline-flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span>Clear</span>
+                </a>
+            @endif
+        </form>
+    </div>
+
+
+
     @if ($suppliers->isEmpty())
         <!-- Empty State -->
         <div class="card">
@@ -33,14 +64,33 @@
                 <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                 </svg>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">No Suppliers Found</h3>
-                <p class="text-gray-600 mb-6">Get started by adding your first supplier</p>
-                <a href="{{ route('suppliers.create') }}" class="btn btn-primary">
-                    Add Your First Supplier
-                </a>
+                @if (!empty($search))
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">No Results Found</h3>
+                    <p class="text-gray-600 mb-6">No suppliers match the email "{{ $search }}"</p>
+                    <a href="{{ route('suppliers.index') }}" class="btn btn-primary">
+                        View All Suppliers
+                    </a>
+                @else
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">No Suppliers Found</h3>
+                    <p class="text-gray-600 mb-6">Get started by adding your first supplier</p>
+                    <a href="{{ route('suppliers.create') }}" class="btn btn-primary">
+                        Add Your First Supplier
+                    </a>
+                @endif
             </div>
         </div>
     @else
+        <!-- Search Results Info -->
+        @if (!empty($search))
+            <div class="card mb-4 bg-blue-50 border border-blue-200">
+                <div class="card-body">
+                    <p class="text-sm text-blue-800">
+                        <span class="font-semibold">Search Results:</span> Found {{ $suppliers->count() }} {{ Str::plural('supplier', $suppliers->count()) }} matching the email "{{ $search }}"
+                    </p>
+                </div>
+            </div>
+        @endif
+
         <!-- Suppliers Table -->
         <div class="card overflow-hidden">
             <div class="overflow-x-auto">

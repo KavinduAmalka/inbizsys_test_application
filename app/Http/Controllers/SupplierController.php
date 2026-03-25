@@ -12,10 +12,20 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::all();
-        return view('suppliers.index', compact('suppliers'));
+        $search = $request->input('email', '');
+        
+        // Start with base query
+        $query = Supplier::query();
+        
+        // Apply email search filter if provided
+        if (!empty($search)) {
+            $query->where('email', 'like', '%' . $search . '%');
+        }
+        
+        $suppliers = $query->get();
+        return view('suppliers.index', compact('suppliers', 'search'));
     }
 
     /**
