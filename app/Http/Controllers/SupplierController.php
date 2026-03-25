@@ -115,4 +115,15 @@ class SupplierController extends Controller
         return redirect()->route('suppliers.index')
                         ->with('success', 'Supplier deleted successfully!');
     }
+
+    /**
+     * Display the print-friendly view for all suppliers.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function print()
+    {
+        $suppliers = Supplier::all();
+        return view('suppliers.print', compact('suppliers'));
+    }
 }

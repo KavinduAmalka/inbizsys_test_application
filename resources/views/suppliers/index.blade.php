@@ -8,12 +8,20 @@
             <h1 class="text-4xl font-bold text-gray-900 mb-2">Suppliers Management</h1>
             <p class="text-gray-600">Manage all your suppliers in one place</p>
         </div>
-        <a href="{{ route('suppliers.create') }}" class="mt-4 sm:mt-0 btn btn-primary inline-flex items-center space-x-2 whitespace-nowrap">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            <span>Add New Supplier</span>
-        </a>
+        <div class="mt-4 sm:mt-0 flex gap-2 flex-wrap">
+            <a href="{{ route('suppliers.create') }}" class="btn btn-primary inline-flex items-center space-x-2 whitespace-nowrap">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span>Add New Supplier</span>
+            </a>
+            <a href="{{ route('suppliers.print') }}" target="_blank" class="btn btn-secondary inline-flex items-center space-x-2 whitespace-nowrap">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4H9m4 0h4m-2-8V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4"></path>
+                </svg>
+                <span>Print List</span>
+            </a>
+        </div>
     </div>
 @endsection
 

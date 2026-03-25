@@ -19,4 +19,5 @@ Route::get('/', function () {
 });
 
 // Supplier Routes
+Route::get('/suppliers/print', [SupplierController::class, 'print'])->name('suppliers.print');
 Route::resource('suppliers', SupplierController::class);
