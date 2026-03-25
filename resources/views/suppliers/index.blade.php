@@ -41,6 +41,7 @@
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Address</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,6 +52,25 @@
                                                 <td>{{ $supplier->email }}</td>
                                                 <td>{{ $supplier->phone }}</td>
                                                 <td>{{ $supplier->address }}</td>
+                                                <td>
+                                                    <a href="{{ route('suppliers.edit', $supplier->id) }}" 
+                                                       class="btn btn-warning btn-sm">
+                                                        ✏️ Edit
+                                                    </a>
+                                                    
+                                                    <!-- Delete Form with Confirmation -->
+                                                    <form action="{{ route('suppliers.destroy', $supplier->id) }}" 
+                                                          method="POST" 
+                                                          style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" 
+                                                                class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('Are you sure you want to delete this supplier? This action cannot be undone.')">
+                                                            🗑️ Delete
+                                                        </button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
